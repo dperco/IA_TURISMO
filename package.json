@@ -1,0 +1,50 @@
+{
+  "name": "ia_turismo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc && copyfiles -u 1 src/public/**/* dist/public",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@langchain/anthropic": "^0.3.13",
+    "@langchain/community": "^0.3.29",
+    "@langchain/core": "^0.3.39",
+    "@langchain/langgraph": "^0.2.45",
+    "@langchain/openai": "^0.4.4",
+    "amadeus": "^11.0.0",
+    "axios": "^1.7.9",
+    "compromise": "^14.14.4",
+    "compromise-dates": "^3.7.1",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "express": "^4.21.2",
+    "langchain": "^0.3.19",
+    "langchain-core": "^0.0.4",
+    "node-fetch": "^2.7.0",
+    "openai": "^4.85.1",
+    "typescript": "^5.7.3",
+    "uuidv4": "^6.2.13",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "copyfiles": "^2.4.1",
+    "dotenv": "^16.4.7",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "vite": "^6.1.1"
+  }
+}

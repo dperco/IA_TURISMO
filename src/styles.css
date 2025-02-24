@@ -1,0 +1,117 @@
+/* Estilos generales */
+/* Estilos generales para el contenedor del chat */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  block-size: 100vh; /* Ocupa toda la altura de la ventana */
+  max-inline-size: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden; /* Evita que el contenido se desborde */
+}
+
+/* Estilos para el contenedor del chat */
+.chat-box {
+  flex: 1; /* Ocupa el espacio disponible */
+  overflow-y: auto; /* Permite el desplazamiento vertical */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  margin-block-end: 10px;
+}
+
+/* Estilos para los mensajes */
+.message {
+  margin-block-end: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  max-inline-size: 80%;
+}
+
+.user-message {
+  background-color: #e3f2fd;
+  margin-inline-start: auto; /* Alinea a la derecha */
+}
+
+.bot-message {
+  background-color: #f1f1f1;
+  margin-inline-end: auto; /* Alinea a la izquierda */
+}
+
+/* Estilos para el contenedor de información adicional */
+.info-container {
+  flex: 1; /* Ocupa el espacio disponible */
+  overflow-y: auto; /* Permite el desplazamiento vertical */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+/* Estilos para las secciones de información */
+.info-section {
+  margin-block-end: 20px;
+}
+
+.info-section h2 {
+  margin-block-end: 10px;
+  font-size: 18px;
+  color: #333;
+}
+
+.info-section p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Estilos para el input y el botón */
+.chat-input {
+  display: flex;
+  gap: 10px;
+  margin-block-start: 10px;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.chat-input button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos para los elementos de hoteles e itinerario */
+.hotel-item, .dia-item {
+  margin-block-end: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.hotel-item p, .dia-item p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.hotel-item strong, .dia-item strong {
+  color: #333;
+}

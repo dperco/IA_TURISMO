@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot de Viajes ✈️</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="chat-container">
+    <header class="chat-header">
+      <h1>Chatbot de Viajes ✈️</h1>
+      <p>Planifica tu viaje con inteligencia artificial</p>
+    </header>
+
+    <div class="chat-box" id="chat-box" aria-live="polite">
+      <div class="message bot-message">
+        <p>¡Hola! Soy tu asistente de viajes. ¿que quieres hacer ?</p>
+      </div>
+    </div>
+
+    <div class="chat-input">
+      <input
+        type="text"
+        id="user-input"
+        placeholder="Escribe tu mensaje..."
+        aria-label="Escribe tu mensaje"
+      />
+      <button id="send-btn" aria-label="Enviar mensaje">Enviar</button>
+    </div>
+
+    
+     <div class="info-container">
+      <section id="clima" class="info-section" aria-labelledby="clima-heading">
+        <h2 id="clima-heading">Clima</h2>
+        <p>Información del clima aparecerá aquí.</p>
+      </section>
+
+      <section id="vuelos" class="info-section" aria-labelledby="vuelos-heading">
+        <h2 id="vuelos-heading">Vuelos Ida</h2>
+        <p>Información de vuelos aparecerá aquí.</p>
+      </section>
+      <section id="vuelos-regreso" class="info-section" aria-labelledby="vuelos-regreso-heading">
+        <h2 id="vuelos-regreso-heading">Vuelos de Regreso</h2>
+        <p>Información de vuelos de regreso aparecerá aquí.</p>
+      </section>
+      <section id="hoteles" class="info-section" aria-labelledby="hoteles-heading">
+        <h2 id="hoteles-heading">Hoteles</h2>
+        <p>Información de hoteles aparecerá aquí.</p>
+      </section>
+
+      <!-- <section id="itinerario" class="info-section" aria-labelledby="itinerario-heading">
+        <h2 id="itinerario-heading">Itinerario</h2>
+        <p>Información del itinerario aparecerá aquí.</p>
+      </section> -->
+
+      <!-- Sección de enlace a actividades -->
+      <section id="actividades" class="info-section" aria-labelledby="actividades-heading">
+        <h2 id="actividades-heading">Actividades</h2>
+        <p>Encuentra actividades y tours en tu destino.</p>
+        <a id="actividades-link" href="#" target="_blank" rel="noopener noreferrer">Ver actividades en Civitatis</a>
+    </div>
+  </div>
+
+  <script type="module" src="./script.js"></script>
+</body>
+</html> 
