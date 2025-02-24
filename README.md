@@ -1,9 +1,14 @@
 # Chatbot de Turismo
 
+video ejemplo : https://drive.google.com/file/d/1lp0HJaODN1sKDiD8_uS9nj7GQVHIePji/view?usp=sharing
+
 Este proyecto es  un chatbot de turismo desarrollado en TypeScript utilizando Express.js, LangChain y LangGraph y Vite.
  El chatbot interactúa con varias APIs externas para proporcionar información sobre el clima, hoteles, vuelos y
   actividades turísticas. Además, gestiona conversaciones con los usuarios mediante un sistema de hilos y memoria,
    utilizando agentes especializados para cada tarea.
+
+   Observacion:  al utilizar Amadeus , hay localidades dond eno esta actualizada la base de datos de Holteles ,
+   eso les  puede dar la seccion hoteles sin informacion
 
 ## Características Principales
 
