@@ -1,238 +1,173 @@
 # Chatbot de Turismo
 
-video ejemplo : https://drive.google.com/file/d/1lp0HJaODN1sKDiD8_uS9nj7GQVHIePji/view?usp=sharing
 
-Este proyecto es  un chatbot de turismo desarrollado en TypeScript utilizando Express.js, LangChain y LangGraph y Vite.
- El chatbot interactúa con varias APIs externas para proporcionar información sobre el clima, hoteles, vuelos y
-  actividades turísticas. Además, gestiona conversaciones con los usuarios mediante un sistema de hilos y memoria,
-   utilizando agentes especializados para cada tarea.
+This project is a tourism chatbot developed in TypeScript using Express.js, LangChain, LangGraph, and Vite. The chatbot interacts with various external APIs to provide information on weather, hotels, flights, and tourist activities. Additionally, it manages user conversations through a thread and memory system, utilizing specialized agents for each task.
 
-   Observacion:  al utilizar Amadeus , hay localidades dond eno esta actualizada la base de datos de Holteles ,
-   eso les  puede dar la seccion hoteles sin informacion
+Note: When using Amadeus, there are locations where the hotel database is not up-to-date, which may result in the hotel section being empty.
 
-## Características Principales
+Key Features
+Weather Query: Retrieves weather information using the OpenWeatherMap API.
 
--Consulta de clima: Obtiene información meteorológica utilizando la API de OpenWeatherMap.
+Hotel Availability: Checks hotel availability using the Amadeus API.
 
--Disponibilidad de hoteles: Consulta la disponibilidad de hoteles utilizando la API de Amadeus.
+Flight Search: Searches for flights using the Amadeus API.
 
--Búsqueda de vuelos: Busca vuelos utilizando la API de Amadeus.
+Tourist Activities: Suggests tourist activities based on the city and budget, integrating links to Civitatis for complete options.
 
--Actividades turísticas: Sugiere actividades turísticas basadas en la ciudad y el presupuesto, integrando enlaces
- a Civitatis para obtener opciones completas.
+Conversation Management: Maintains a conversation history per user using a thread system and LangChain agents.
 
--Gestión de conversaciones: Mantiene un historial de conversaciones por usuario utilizando un sistema de hilos y
-agentes de LangChain.
+Specialized Agents: Utilizes LangChain agents to handle specific tasks such as flight search, hotel search, and weather queries.
 
--Agentes especializados: Utiliza agentes de LangChain para manejar tareas específicas, como la búsqueda de vuelos,
-hoteles y clima
+Frontend with Vite: The frontend is developed with Vite, a modern tool that offers superior performance and a faster development experience.
 
--Frontend con Vite: El frontend está desarrollado con Vite, una herramienta moderna que ofrece un rendimiento
-superior y una experiencia de desarrollo más rápida.
+APIs Used
+OpenWeatherMap: For obtaining weather information.
 
-## APIs Utilizadas
+Documentation: OpenWeatherMap
 
-OpenWeatherMap: Para obtener información meteorológica.
+Amadeus: For checking hotel availability and flight searches.
 
-Documentación de OpenWeatherMap: [https://www.weatherapi.com/my/#](https://www.weatherapi.com/my/#)
+Documentation: Amadeus
 
-Amadeus: Para consultar disponibilidad de hoteles y vuelos.
+Civitatis: For obtaining tourist activities and tours.
 
-[Documentación de Amadeus](https://developers.amadeus.com/my-apps/PERCOVIAJERO?userId=danielperco4@gmail.com)
+Documentation: Civitatis
 
-Civitatis: Para obtener actividades turísticas y tours.
+OpenAI: For generating natural language tools.
 
-Documentación de Civitatis: [https://www.civitatis.com/ar](https://www.civitatis.com/ar)
+Documentation: OpenAI
 
-Open_AI: para generar herramientas de lenguaje natural.
+Makcorps: For obtaining city codes.
 
-Documentación de Open_AI: [https://platform.openai.com/docs/overview](https://platform.openai.com/docs/overview)
+Documentation: Makcorps
 
-Makcorps: Para obtener códigos de ciudad.
+Choice of Amadeus over Makcorps
+The choice of Amadeus over Makcorps is due to Amadeus offering a more complete and robust API for flight and hotel searches. Makcorps only allows about 10 test calls in its FREE version. For more extensive queries, it becomes a paid service at $350 per month for 10k free calls per month. Therefore, this example is implemented using Amadeus, which, although not updated in some locations, is more accessible for this project.
 
-Documentación de Makcorps: [https://docs.makcorps.com/](https://docs.makcorps.com/)
-#############################################################################################################
-Elección de Amadeus sobre Makcorps
-La elección de Amadeus sobre Makcorps , se debe a que  Markcorps , ofrece una API más completa y robusta para
-la búsqueda de vuelos y hoteles, solo permite unas 10 llamadas de pruebas en su version FREE .
-Para mayores consultas  ya es paga , u$s 350 x mes 10k libres x mes.
-Asi que este ejemplo,  se realiza con Amadeus ,que no tiene actualizada la lista de hoteles en algunas localidades.
+Use of LangChain and LangGraph
+LangChain
+LangChain is used to manage the logic of the agents and the interaction with external APIs. The agents are responsible for handling specific tasks such as flight search, hotel search, and weather queries. Each agent is designed to interact with a specific API and return structured results.
 
-#############################################################################################################
+LangGraph
+LangGraph is used to manage the flow of conversations and user memory. It allows maintaining a history of interactions per user and efficiently managing conversation threads.
 
-## Uso de LangChain y LangGraph
+Agents
+Weather Agent: Interacts with OpenWeatherMap to obtain weather information.
 
--LangChain
+Hotel Agent: Interacts with the Amadeus API to check hotel availability.
 
-LangChain se utiliza para gestionar la lógica de los agentes y la interacción con las APIs externas.
- Los agentes son responsables de manejar tareas específicas, como la búsqueda de vuelos, hoteles y clima.
- Cada agente está diseñado para interactuar con una API específica y devolver resultados estructurados.
+Flight Agent: Interacts with the Amadeus API to search for flights.
 
--LangGraph
+Activity Agent: Suggests tourist activities based on the city and budget, integrating links to Civitatis.
 
-LangGraph se utiliza para gestionar el flujo de conversaciones y la memoria de los usuarios. Permite mantener
- un historial de interacciones por usuario y gestionar hilos de conversación de manera eficiente.
+Architecture
+The project follows a modular, layered architecture:
 
--Agentes
+Routing Layer: Defines the API endpoints (index.ts and routes/chat.ts).
 
-Agente de Clima: Interactúa con OpenWeatherMap para obtener información meteorológica.
+Controller Layer: Handles business logic and interactions with LangChain agents.
 
-Agente de Hoteles: Interactúa con la API de Amadeus para consultar disponibilidad de hoteles.
+Agent Layer: Contains specialized agents that interact with external APIs (agents/WeatherAgent.ts, agents/HotelAgent.ts, etc.).
 
-Agente de Vuelos: Interactúa con la API de Amadeus para buscar vuelos.
+Utility Layer: Helper functions for handling data and additional logic (utils/extracTravelinfo.ts, utils/process_messages.ts).
 
-Agente de Actividades: Sugiere actividades turísticas basadas en la ciudad y el presupuesto, integrando enlaces
- a Civitatis.
+Memory Layer: Manages conversation state through threads and LangGraph (utils/manejo_hilos.ts).
 
-## Arquitectura
-
-El proyecto sigue una arquitectura modular basada en capas:
-
-Capa de Rutas: Define los endpoints de la API (index.ts y routes/chat.ts).
-
-Capa de Controladores: Maneja la lógica de negocio y las interacciones con los agentes de LangChain.
-
-Capa de Agentes: Contiene los agentes especializados que interactúan con las APIs externas
- (agents/WeatherAgent.ts, agents/HotelAgent.ts, etc.).
-
-Capa de Utilidades: Funciones auxiliares para manejar datos y lógica adicional
-(utils/extracTravelinfo.ts, utils/process_messages.ts).
-
-Capa de Memoria: Gestiona el estado de las conversaciones mediante hilos y LangGraph
-(utils/manejo_hilos.ts).
-
-Diagrama de Arquitectura
-plaintext
+Architecture Diagram
 Copy
 Frontend (Vite + React)
-       |
-       v
+|
+v
 Backend (Express.js)
-       |
-       v
-LangChain (Agentes)
-       |
-       v
+|
+v
+LangChain (Agents)
+|
+v
+External APIs (OpenWeatherMap, Amadeus, Civitatis)
+Installation
+Follow these steps to install and run the frontend and backend in your local environment.
 
-## APIs Externas (OpenWeatherMap, Amadeus, Civitatis)
+Prerequisites
+Node.js (v16 or higher)
 
--Instalación
+npm (v8 or higher)
 
-Sigue estos pasos para instalar y ejecutar el frontend y backend en tu entorno local.
+API keys for OpenWeatherMap, Amadeus, and Makcorps.
 
--Requisitos Previos
+Installation Steps
+Clone the repository:
 
-Node.js (v16 o superior)
-
-npm (v8 o superior)
-
-Claves de API para OpenWeatherMap, Amadeus, y Makcorps.
-
-## Pasos para la Instalación
-
-Clona el repositorio:
-
-git clone [https://github.com/tu-usuario/tu-repositorio.git](https://github.com/tu-usuario/tu-repositorio.git)
+sh
+Copy
+git clone https://github.com/tu-usuario/tu-repositorio.git
 cd tu-repositorio
+Install dependencies:
 
--Instala las dependencias:
-
+sh
+Copy
 npm install
+Create a .env file in the root of the project and add your API keys:
 
--Crea un archivo .env en la raíz del proyecto y agrega tus claves de API:
-
-.env
-
-API_KEY_OPEN_AI= your_api_key_openai
-Api_weather_next= your_api_key_openweather
-id_weather_day= your_api_key_id_wather
-AMADEUS_CLIENT_ID = your_api_key_Amadeus
+env
+Copy
+API_KEY_OPEN_AI=your_api_key_openai
+Api_weather_next=your_api_key_openweather
+id_weather_day=your_api_key_id_wather
+AMADEUS_CLIENT_ID=your_api_key_Amadeus
 AMADEUS_CLIENT_SECRET=your_api_key_secret_Amadeus
+Start the frontend and backend servers in development mode:
 
--Inicia los servidores de frontend y backend  en modo desarrollo:
+Open two terminals:
 
-abrimos 2 terminales
+Terminal 1: Start the frontend server with Vite:
 
-1. Terminal 1: Inicia el servidor de frontend con Vite:
-   npx vite
+sh
+Copy
+npx vite
+Terminal 2: Start the backend server with Express.js:
 
-2. Terminal 2: Inicia el servidor de backend con Express.js:
-    npm i
-    npm run build
-    npm run dev
+sh
+Copy
+npm i
+npm run build
+npm run dev
+The chatbot will be available at http://localhost:3000.
 
-El chatboot estará disponible en <http://localhost:3000>.
-
-## Endpoints
-
-1. Chatbot
-Método: POST
+Endpoints
+Chatbot
+Method: POST
 
 URL: /chatboot
 
-Descripción: Maneja las interacciones del chatbot con los usuarios.
+Description: Handles chatbot interactions with users.
 
-Input:{
+Input:
+
+json
+Copy
+{
   "city": "MAD",
   "destino": "BAR",
   "checkInDate": "2023-01-01",
   "checkOutDate": "2023-01-02"
 }
 Output:
-   "Aquí tienes algunos vuelos de BAR a MAD para 2025-02-25:\n-
-   Salida: BAR a las 2025-02-25T19:25:00, Llegada: MAD a las 2025-02-26T13:45:00, Precio: 564.78 EUR\n-
-   Salida: BAR a las 2025-02-25T19:25:00, Llegada: MAD a las 2025-02-26T19:55:00, Precio: 564.78 EUR\n-
-   Salida: BAR a las 2025-02-25T19:25:00, Llegada: MAD a las 2025-02-26T13:50:00, Precio: 666.12 EUR\n-
-   Salida: BAR a las 2025-02-25T19:25:00, Llegada: MAD a las 2025-02-27T08:00:00, Precio: 781.22 EUR\n-
-   Salida: BAR a las 2025-02-25T19:25:00, Llegada: MAD a las 2025-02-27T08:00:00, Precio: 781.22 EUR\n-
-   Salida: BAR a las 2025-02-25T19:25:00, Llegada: MAD a las 2025-02-27T08:00:00, Precio: 781.22 EUR\n-
-   Salida: BAR a las 2025-02-25T19:25:00, Llegada: MAD a las 2025-02-27T08:00:00, Precio: 781.22 EUR\n-
-    ...............
-hotels
-:
-"[{\"chainCode\":\"AR\",\"iataCode\":\"MAD\",\"dupeId\":700025872,\"name\":\"AC BY MARRIOTT ALCALA DE HENAR\",
-\"hotelId\":\"ARMADALC\",\"disponibilidad\":{\"data\":[{\"type\":\"hotel-offers\",\"hotel\":{\"type\":\"hotel\",
-\"hotelId\":\"ARMADALC\",\"chainCode\":\"AR\",\"dupeId\":\"700025872\",\"name\":\"AC by Marriott Hotel Alcala de
- Henares\",\"cityCode\":\"MAD\",\"latitude\":40.5028,\"longitude\":-3.36574},\"available\":true,\"offers\":[{\"id\
- ":\"G886SCREEZ\",\"checkInDate\":\"2025-02-25\",\"checkOutDate\":\"2025-03-04\",\"rateCode\":\"0EM\",
- \"rateFamilyEstimated\":{\"code\":\"PRO\",\"type\":\"P\"},\"room\":{\"type\":\"UKE\",\"typeEstimated\":
- {\"beds\":1,\"bedType\":\"QUEEN\"},\"description\":{\"text\":\"Stay Longer on Us, Save 10% or more as you
-  stay longer\\n1 Queen, Wireless internet, complimentary\",\"lang\":\"EN\"}},\"guests\":{\"adults\":2},
-  \"price\":..................
-  ...............................
 
-message
-:
-"Tu viaje de BAR a MAD del 2025-02-25 al 2025-03-04 ha sido registrado."
-returnFlights
-:
-"Aquí tienes algunos vuelos de MAD a BAR para 2025-03-04:\n-
-Salida: MAD a las 2025-03-04T05:50:00, Llegada: BAR a las 2025-03-05T18:35:00, Precio: 317.34 EUR\n-
-Salida: MAD a las 2025-03-04T10:30:00, Llegada: BAR a las 2025-03-06T18:35:00, Precio: 685.63 EUR\n-
-Salida: MAD a las 2025-03-04T10:30:00, Llegada: BAR a las 2025-03-06T18:35:00, Precio: 685.63 EUR\n-
-Salida: MAD a las 2025-03-04T10:30:00, Llegada: BAR a las 2025-03-06T18:35:00, Precio: 685.63 EUR\n-
-Salida: MAD a las 2025-03-04T10:30:00, Llegada: BAR a las 2025-03-06T18:35:00, Precio: 685.63 EUR\n-
-Salida: MAD a las 2025-03-04T10:30:00, Llegada: BAR a las 2025-03-06T18:35:00, Precio: 685.63 EUR\n-
-...........................................
-weather
-:
-clima
-:
-{ubicación: 'Mád', temperatura: 1.09, descripción: 'overcast clouds', humedad: 79, viento: 1.39}
-listaDeArticulos
-:
-"Ropa interior, Calcetines, Artículos de higiene personal, Cargador de teléfono, Adaptador de corriente
-(si es necesario), Abrigo, Bufanda, Gorro, Guantes, Calzado cerrado"
-
-1. Flujo Completo (Hoteles, Vuelos y Clima)
-Método: POST
+json
+Copy
+"Here are some flights from BAR to MAD for 2025-02-25:\n- Departure: BAR at 2025-02-25T19:25:00, Arrival: MAD at 2025-02-26T13:45:00, Price: 564.78 EUR\n- Departure: BAR at 2025-02-25T19:25:00, Arrival: MAD at 2025-02-26T19:55:00, Price: 564.78 EUR\n- Departure: BAR at 2025-02-25T19:25:00, Arrival: MAD at 2025-02-26T13:50:00, Price: 666.12 EUR\n- Departure: BAR at 2025-02-25T19:25:00, Arrival: MAD at 2025-02-27T08:00:00, Price: 781.22 EUR\n- Departure: BAR at 2025-02-25T19:25:00, Arrival: MAD at 2025-02-27T08:00:00, Price: 781.22 EUR\n- Departure: BAR at 2025-02-25T19:25:00, Arrival: MAD at 2025-02-27T08:00:00, Price: 781.22 EUR\n- Departure: BAR at 2025-02-25T19:25:00, Arrival: MAD at 2025-02-27T08:00:00, Price: 781.22 EUR\n- ............... hotels : "[{\"chainCode\":\"AR\",\"iataCode\":\"MAD\",\"dupeId\":700025872,\"name\":\"AC BY MARRIOTT ALCALA DE HENAR\", \"hotelId\":\"ARMADALC\",\"disponibilidad\":{\"data\":[{\"type\":\"hotel-offers\",\"hotel\":{\"type\":\"hotel\", \"hotelId\":\"ARMADALC\",\"chainCode\":\"AR\",\"dupeId\":\"700025872\",\"name\":\"AC by Marriott Hotel Alcala de Henares\",\"cityCode\":\"MAD\",\"latitude\":40.5028,\"longitude\":-3.36574},\"available\":true,\"offers\":[{\"id\":\"G886SCREEZ\",\"checkInDate\":\"2025-02-25\",\"checkOutDate\":\"2025-03-04\",\"rateCode\":\"0EM\", \"rateFamilyEstimated\":{\"code\":\"PRO\",\"type\":\"P\"},\"room\":{\"type\":\"UKE\",\"typeEstimated\": {\"beds\":1,\"bedType\":\"QUEEN\"},\"description\":{\"text\":\"Stay Longer on Us, Save 10% or more as you stay longer\n1 Queen, Wireless internet, complimentary\",\"lang\":\"EN\"}},\"guests\":{\"adults\":2}, \"price\":.................. ...............................\n\nmessage : \"Your trip from BAR to MAD from 2025-02-25 to 2025-03-04 has been registered.\" returnFlights : \"Here are some flights from MAD to BAR for 2025-03-04:\n- Departure: MAD at 2025-03-04T05:50:00, Arrival: BAR at 2025-03-05T18:35:00, Price: 317.34 EUR\n- Departure: MAD at 2025-03-04T10:30:00, Arrival: BAR at 2025-03-06T18:35:00, Price: 685.63 EUR\n- Departure: MAD at 2025-03-04T10:30:00, Arrival: BAR at 2025-03-06T18:35:00, Price: 685.63 EUR\n- Departure: MAD at 2025-03-04T10:30:00, Arrival: BAR at 2025-03-06T18:35:00, Price: 685.63 EUR\n- Departure: MAD at 2025-03-04T10:30:00, Arrival: BAR at 2025-03-06T18:35:00, Price: 685.63 EUR\n- Departure: MAD at 2025-03-04T10:30:00, Arrival: BAR at 2025-03-06T18:35:00, Price: 685.63 EUR\n- ........................................... weather : clima : {location: 'Mád', temperature: 1.09, description: 'overcast clouds', humidity: 79, wind: 1.39} listaDeArticulos : \"Underwear, Socks, Personal hygiene items, Phone charger, Power adapter (if necessary), Coat, Scarf, Hat, Gloves, Closed shoes\""
+Full Flow (Hotels, Flights, and Weather)
+Method: POST
 
 URL: /test-full-flow
 
-Descripción: Obtiene información combinada sobre hoteles, vuelos y clima para una ciudad y fechas específicas.
+Description: Retrieves combined information about hotels, flights, and weather for a specific city and dates.
 
 Input:
 
+json
+Copy
 {
   "city": "Paris",
   "destino": "Paris",
@@ -241,64 +176,60 @@ Input:
 }
 Output:
 
+json
+Copy
 {
   "weather": { ... },
   "flights": { ... },
   "hotels": { ... }
 }
+Testing
+You can test the chatbot and the full flow using cURL or any other API testing tool. Below are examples of how to test the endpoints:
 
-Pruebas
-Puedes probar el chatbot y el flujo completo utilizando cURL o cualquier otra herramienta de prueba de API.
-A continuación, se muestran ejemplos de cómo probar los endpoints:
-
-curl -X POST <http://localhost:3000/chatboot> \
+Test the /chatboot Endpoint
+sh
+Copy
+curl -X POST http://localhost:3000/chatboot \
 -H "Content-Type: application/json" \
 -d '{"city": "Paris", "destino": "Paris", "checkInDate": "2023-01-01", "checkOutDate": "2023-01-02"}'
-
-Prueba del Endpoint /test-full-flow
-
-curl -X POST <http://localhost:3000/test-full-flow> \
-
+Test the /test-full-flow Endpoint
+sh
+Copy
+curl -X POST http://localhost:3000/test-full-flow \
 -H "Content-Type: application/json" \
 -d '{"city": "Paris", "destino": "Paris", "checkInDate": "2023-01-01", "checkOutDate": "2023-01-02"}'
+Contributions
+If you wish to contribute to this project, follow these steps:
 
-Contribuciones
-Si deseas contribuir a este proyecto, sigue estos pasos:
+Fork the repository.
 
-Haz un fork del repositorio.
+Create a branch for your contribution (git checkout -b feature/new-feature).
 
-Crea una rama para tu contribución (git checkout -b feature/nueva-funcionalidad).
+Make your changes and commit them (git commit -m "Add new feature").
 
-Realiza tus cambios y haz commit (git commit -m "Añade nueva funcionalidad").
+Push your changes (git push origin feature/new-feature).
 
-Sube tus cambios (git push origin feature/nueva-funcionalidad).
+Open a Pull Request on GitHub.
 
-Abre un Pull Request en GitHub.
+Frontend with Vite
+The frontend of this project is developed with Vite, allowing for a fast and efficient development experience. Below is the interaction flow with the chatbot from the frontend:
 
-Frontend con Vite
-El frontend de este proyecto está desarrollado con Vite, lo que permite una experiencia de desarrollo rápida y
- eficiente. A continuación, se describe el flujo de interacción con el chatbot desde el frontend:
+Data Input:
 
-Ingreso de Datos:
+The user enters the origin, destination, start date, and return date in the chatbot interface.
 
-El usuario ingresa el origen, destino, fecha de inicio y fecha de regreso en la interfaz del chatbot.
+This data is sent to the backend via an HTTP request.
 
-Estos datos se envían al backend a través de una solicitud HTTP.
+Backend Processing:
 
-Procesamiento en el Backend:
+The backend processes the request, queries the corresponding APIs (weather, flights, hotels), and generates a structured response.
 
-El backend procesa la solicitud, consulta las APIs correspondientes (clima, vuelos, hoteles) y genera una respuesta
- estructurada.
+Result Display:
 
-Visualización de Resultados:
+The frontend receives the response from the backend and displays it to the user in a clear and organized manner.
 
-El frontend recibe la respuesta del backend y la muestra al usuario de manera clara y organizada.
+Weather data, extra tips, outbound and return flights, available hotels, and a link to tourist activities on Civitatis are shown.
 
-Se muestran los datos del clima, consejos extras, vuelos de ida y vuelta, hoteles disponibles y un enlace a
- actividades turísticas en Civitatis.
+Choice of Amadeus over Makcorps
+The choice of Amadeus over Makcorps is due to Amadeus offering a more complete and robust API for flight and hotel searches, with more detailed documentation and broader support. Additionally, Amadeus is one of the leading booking platforms in the travel industry, ensuring greater accuracy and data availability.
 
-Elección de Amadeus sobre Makcorps
-La elección de Amadeus sobre Makcorps se debe a que Amadeus ofrece una API más completa y robusta para
-la búsqueda de vuelos y hoteles, con una documentación más detallada y un soporte más amplio. Además,
-Amadeus es una de las principales plataformas de reservas en la industria de viajes, lo que garantiza
-una mayor precisión y disponibilidad de datos.
